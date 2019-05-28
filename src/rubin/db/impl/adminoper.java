@@ -101,7 +101,6 @@ public class adminoper {
 		} else{
 			sql = "select count(*) from admin where aname like ?";
 		}
-		
 		int count = 0;
 		try {
 		PreparedStatement psta = conn.prepareStatement(sql);
