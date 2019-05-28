@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    	<script src="../js/jquery-3.1.1.min.js"></script>
+    	<script src="../bootstrap/js/bootstrap.min.js"></script>    	
+    	<script type="text/javascript" src="../js/bootstrapValidator.js" ></script>
+    	<link rel="stylesheet" href="../css/bootstrapValidator.css" />
+    	<script type="text/javascript" src="../js/bootbox.min.js"></script>
+    	<title>注册</title>
+    	<script type="text/javascript">
+    		$(function(){
+    			$("#registForm").bootstrapValidator({
+    				message : "注册表单填写错误！" ,
+    				feedbackIcons: {			// 图标设置
+    					valid: 'glyphicon glyphicon-ok',		// 合格
+    					invalid: 'glyphicon glyphicon-remove',	// 不合格
+    					validating: 'glyphicon glyphicon-refresh'	// 校验中，，，
+    				},
+    				fields : {
+    					name: {
+   							message : '注册账号有误' , 
+   							validators : {
+   								notEmpty : {
+   									message : '必须填写账号！' 
+   								} ,
+   								remote : {
+   								message : '用户名已存在！' ,
+   								type : 'post' ,
+   			                    url : '../useroper.do?method=namecheck' ,    			                    	
+   			                    delay : 2000
+   								}
+   							} ,
+    					} ,
+    					pass : {
+    						message : '密码填写错误！' ,
+    						validators : {
+    							notEmpty : {
+    								message : '必须填写密码！' 
+    							} ,
+    							stringLength : {
+    								message : '长度应该在3--10之间' ,
+    								min : 3 ,
+    								max : 10 ,
+    							} ,
+    							identical: {   //相同
+    		                         field: 'pass2',
+    		                         message: '两次密码不一致'
+    		                     },
+    		                     regexp: {//匹配规则
+    		                         regexp: /^[a-zA-Z0-9_\.]+$/,
+    		                         message: '密码只能使用数字和字母'
+    		                     }
+    						}
+    					} ,
+    					pass2 : {
+    						message : '确认密码填写错误！' ,
+    						validators : {    							
+    							identical: {   //相同
+    		                         field: 'pass',
+    		                         message: '两次密码不一致'
+    		                     },
+    		                    
+    						}
+    					} ,
+    					email : {
+    						message : '电子邮件填写错误！' ,
+    						validators : {
+    							//notEmpty : {
+    							//	message : '必须填写邮箱!' 
+    							//} ,
+	   							emailAddress: {
+	   		                        message: '请输入正确的邮件地址如：123@qq.com'
+	   		                    }
+    						}
+    					} ,
+    					phone : {
+    						message : '电话填写错误！' ,
+    						validators : {
+    							stringLength: {
+    		                         min: 11,
+    		                         max: 11,
+    		                         message: '请输入11位手机号码'
+    		                     },
+    		                     regexp: {
+    		                         regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+    		                         message: '请输入正确的手机号码'
+    		                     }
+    						}
+    					}
+    				}
+    			}).on('success.form.bv', function(e) {//点击提交之后
+    					 // 阻止表单提交
+    					 e.preventDefault();
+
+    					 // 获取表单引用
+    					 var $form = $(e.target);
+
+    					 // 得到bootstrapvalidator实例
+    					 var bv = $form.data('bootstrapValidator');
+
+    					 // 使用Ajax提交表单并进行校验
+    					 $.post('../useroper.do?method=adduser', $form.serialize(), function(res) {
+    						var resObj = JSON.parse(res) ;
+   							console.dir(resObj.result) ;
+   							if(resObj.result == "true") {
+   								bootbox.alert("注册成功!") ;
+   								location.href="../Login.html" ;
+   							} else {
+   								bootbox.alert("注册失败！") ;
+   							}
+    					});
+    			});
+    		})
+    	</script>
+	</head>
+<body>
+		<div class="container">	
+			<fieldset class="col-md-6 col-md-offset-3" style=" border: 1px solid gainsboro;border-radius: 10px; background-color: papayawhip;">		
+				<form class="form-horizontal" id="registForm" style="margin-top:10px;">
+				  <div class="form-group" >
+				    <label for="name" class="col-md-offset-2 col-md-2 control-label">用户名</label>
+				    <div class="col-md-6">
+				      <input type="text" class="form-control" name="name" id="name" placeholder="Username">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="pass" class="col-md-offset-2 col-md-2 control-label">密码</label>
+				    <div class="col-md-6">
+				      <input type="text" class="form-control" name="pass" id="pass" placeholder="Password">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="pass2" class="col-md-offset-2 col-md-2 control-label">密码</label>
+				    <div class="col-md-6">
+				      <input type="text" class="form-control" name="pass2" id="pass2" placeholder="ConfirmPassword">
+				    </div>
+				  </div>
+				  <div class="form-group" >
+				    <label for="email" class="col-md-offset-2 col-md-2 control-label">Email</label>
+				    <div class="col-md-6">
+				      <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+				    </div>
+				  </div>
+				  <div class="form-group" >
+				    <label for="phone" class="col-md-offset-2 col-md-2 control-label">电话</label>
+				    <div class="col-md-6">
+				      <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-offset-4 col-md-6">
+				    	<span id="returnMessage" class="glyphicon"></span>
+				      	<button type="submit" id="regSubmitBtn" class="btn btn-info">注册</button>
+				      	<button type="reset" id="resetBtn" class="btn btn-success" style="margin:10px">取消</button>
+				    </div>
+				  </div>
+				</form>
+			</fieldset>				
+		</div>
+	</body>
+</html>

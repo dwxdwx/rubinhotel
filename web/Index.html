@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap-table.css" />
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="bootstrap/js/bootstrap-table.js"></script>
+		<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+		<script type="text/javascript" src="js/bootbox.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrapValidator.css" />
+		<title>RuBin酒店管理系统</title>
+		<script type="text/javascript" src="js/time.js"></script>
+		<style type="text/css">
+			.title1 {
+				font-size: 40px;
+				font-family: "黑体";
+				letter-spacing: 10px;
+			}
+			
+			.title2 {
+				font-size: 20px;
+				color: #959595;
+				font-family: "宋体";
+			}
+			
+			.head-right {
+				padding-top: 30px;
+			}
+			
+			.top {
+				border-bottom: 1px solid wheat;
+			}
+			.body {
+				background-color: #C8E5BC;
+			}
+		</style>
+		<script type="text/javascript">
+            $(function () {
+ 				
+                $.get("${ctx}/dashboard", function (data) {
+                    $("#mainContent").html(data);//初始化加载界面   
+                });
+                $('#mainMenu li').click(function () {//点击li加载界面  
+                    var current = $(this),
+                    
+//                  $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
+//      			$(this).addClass('active');                            // 添加当前元素的样式            
+					target = current.find('a').attr('target'); // 找到链接a中的targer的值  
+                    $.get(target, function (data) {
+                        $("#mainContent").html(data);
+                    });
+                });
+                $("#usermsg a").click(function (e) {
+                    e.preventDefault();
+                    $(this).tab("show");
+                });
+                $("#roommsg a").click(function (e) {
+                    e.preventDefault();
+                    $(this).tab("show");
+                });
+                $("#ordermsg a").click(function (e) {
+                    e.preventDefault();
+                    $(this).tab("show");
+                });
+                $("#msg a").click(function (e) {
+                    e.preventDefault();
+                    $(this).tab("show");
+                });
+                $("#exit").click(function(){
+        			location.href="Login.html" ;
+        		}) ;
+ 				
+            });
+        </script>
+
+	</head>
+
+	<body background="img/1 .jpg" style="background-size: cover;">
+		<div class="container-fluid">
+			<div class="panel-heading">
+				<div class="row top">
+					<div class="col-md-5">
+						<label class="title1">
+							<span class="glyphicon glyphicon-home"></span>RuBin
+						</label>
+						<label class="title2">酒店</label>
+					</div>
+					<div class="col-md-3 col-md-offset-4" style="float:right">
+						<div style="float:right">
+							<label class="head-right">
+								<span class="glyphicon glyphicon-time"></span>
+								<label id="time" style="padding-right: 15px;"></label>
+							</label>
+							<button type="button" class="btn btn-success" id="exit">
+								<span class="glyphicon glyphicon-off"></span>注销
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row content-left">
+					<ul class="nav nav-tabs"  id="mainMenu">
+						<li role="presentation" class="active">
+							<a href="">首页</a>
+						</li>
+						<li role="presentation" id="usermsg">
+							<a target="Page_one.html" >住户信息管理</a>
+						</li>
+						<li role="presentation" id="roommsg">
+							<a target="Page_two.html" >房间信息管理</a>
+						</li>
+						<li role="presentation" id="ordermsg">
+							<a target="Page_three.html" >订单信息管理</a>
+						</li>
+						<li role="presentation" id="msg">
+							<a target="Page_four.html" >管理员信息</a>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="content-wrapper" id ="mainContent">
+				<h1 style="color: white;text-align: center; font-size: 50px;">RuBin酒店欢迎您的光临!</h1>
+			</div>
+		</div>
+	</body>
+
+</html>

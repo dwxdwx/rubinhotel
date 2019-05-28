@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>订单信息</title>
+		<script type="text/javascript" src="js/Page_three.js"></script>
+	</head>
+	<body>
+		<div class="panel" style="background:rgba(255, 255, 255, 0.5);">
+				<div class="panel-heading">
+					<form id="formSearch" class="form-horizontal">
+						<div class="form-group" style="margin-top:15px">
+							<label class="control-label col-md-1" for="search_uname">姓名</label>
+							<div class="col-md-2">
+								<input type="text" class="form-control" id="search_uname">
+							</div>
+
+							<div class="col-md-3" style="text-align:left;">
+								<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="panel-body">
+					<div id="toolbar" class="btn-group">
+						<button id="btn_add" type="button" class="btn btn-default">
+			 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+					</button>
+						<button id="btn_delete" type="button" class="btn btn-default">
+			 			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+			 		</button>
+					</div>
+					<table id="productTable"></table>
+				</div>
+			</div>
+			
+			
+			<!-- 编辑-模态框 -->
+			<div class="modal fade" id="editWindow" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">修改订单信息</h4>
+						</div>
+						<form class="form-horizontal" id="editForm" style="margin: 30px;">
+
+							<div class="form-group">
+								<label for="edit_oid" class="col-md-offset-2 col-md-2 control-label">订单编号</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="oid" id="edit_oid" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="edit_uname" class="col-md-offset-2 col-md-2 control-label">订单人姓名</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="uname" id="edit_uname" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="edit_omoney" class="col-md-offset-2 col-md-2 control-label">订单总价</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="omoney" id="edit_omoney">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="edit_ostate" class="col-md-offset-2 col-md-2 control-label">订单状态</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="ostate" id="edit_ostate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="edit_aname" class="col-md-offset-2 col-md-2 control-label">负责人</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="aname" id="edit_aname" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group modal-footer">
+								<div class="col-md-offset-4 col-md-6">
+									<span id="returnMessage" class="glyphicon"></span>
+									<button type="button" id="editSubmitBtn" class="btn btn-info">更新</button>
+									<button type="reset" id="editResetBtn" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- 添加-模态框 -->
+			<div class="modal fade" id="addWindow" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">添加订单信息</h4>
+						</div>
+						<form class="form-horizontal" id="addForm" style="margin: 30px;">
+
+							<div class="form-group">
+								<label for="add_uid" class="col-md-offset-2 col-md-2 control-label">订单人Id</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="uid" id="add_uid">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="add_rid" class="col-md-offset-2 col-md-2 control-label">房间号</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="rid" id="add_rid">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="add_omoney" class="col-md-offset-2 col-md-2 control-label">订单总价</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="omoney" id="add_omoney">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="add_ostate" class="col-md-offset-2 col-md-2 control-label">订单状态</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="ostate" id="add_ostate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="add_aid" class="col-md-offset-2 col-md-2 control-label">负责人Id</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="aid" id="add_aid">
+								</div>
+							</div>
+							<div class="form-group modal-footer">
+								<div class="col-md-offset-4 col-md-6">
+									<span id="returnMessage" class="glyphicon"></span>
+									<button type="button" id="addSubmitBtn" class="btn btn-info">添加</button>
+									<button type="reset" id="addResetBtn" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>
