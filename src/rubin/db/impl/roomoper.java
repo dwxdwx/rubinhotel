@@ -19,7 +19,6 @@ public class roomoper {
 	 * 获取所有房间，分页
 	 */
 	public ArrayList<room> getAll(int page, int pagesize, String nameKey) {
-
 		ArrayList<room> list = new ArrayList<>();
 		if(nameKey == null || nameKey.trim().length() == 0){
 			sql = "select * from room limit ?,?";
