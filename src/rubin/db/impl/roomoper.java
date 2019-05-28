@@ -25,7 +25,6 @@ public class roomoper {
 		}else{
 			sql ="select * from room where rtype like ? limit ?,?";
 		}
-		
 		try {
 			PreparedStatement psta = conn.prepareStatement(sql);
 			if(nameKey == null || nameKey.trim().length() == 0){
